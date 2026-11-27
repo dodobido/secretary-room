@@ -692,6 +692,225 @@
   .note-save{ opacity:.45; pointer-events:none; }
   .note-card.dirty .note-save{ opacity:1; pointer-events:auto; }
 
+  /* ---------- Office (3D view) ---------- */
+  .office-scroll{ padding-top:14px; }
+  .ws-card{
+    position:relative;
+    padding:15px 16px 16px;
+    border-radius:20px;
+    background:linear-gradient(180deg,#FFFDF9 0%,#FBF4E8 100%);
+    border:1px solid #EDE1CF;
+    box-shadow:0 3px 12px rgba(139,69,19,.05);
+  }
+  .ws-badge{
+    display:inline-flex; align-items:center;
+    padding:4px 11px;
+    border-radius:999px;
+    background:#F0EAE0;
+    border:1px solid #E6DCCC;
+    color:#6E6353;
+    font-size:11.5px;
+    font-weight:800;
+    letter-spacing:.1px;
+  }
+  .ws-title{
+    margin:10px 0 5px;
+    font-size:19px;
+    font-weight:900;
+    letter-spacing:-.7px;
+    line-height:1.34;
+    word-break:keep-all;
+  }
+  .ws-sub{
+    margin:0;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:-.25px;
+    color:#95826C;
+    line-height:1.5;
+    word-break:keep-all;
+  }
+  .office-pills{
+    display:flex;
+    gap:7px;
+    margin:12px 0 13px;
+    padding:1px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .office-pills::-webkit-scrollbar{ display:none; }
+  .opill{
+    flex:0 0 auto;
+    display:inline-flex; align-items:center; gap:6px;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid #EADCC8;
+    background:#FCF7EF;
+    color:#7C6752;
+    font-size:12.5px;
+    font-weight:800;
+    letter-spacing:-.3px;
+    white-space:nowrap;
+    transition:all .16s;
+  }
+  button.opill:hover{ background:#F7EEE0; }
+  .opill .led{ width:7px; height:7px; border-radius:50%; background:#4CA96C; box-shadow:0 0 0 2px rgba(76,169,108,.16); flex:0 0 auto; }
+  .opill.dark{
+    background:linear-gradient(180deg,#2E3B3F,#1D2A2E);
+    border-color:transparent;
+    color:#FFF9F2;
+    box-shadow:0 4px 12px rgba(29,42,46,.22);
+  }
+  button.opill.dark:hover{ filter:brightness(1.08); }
+  .opill.off{ color:#8A7663; background:#F5EFE5; }
+  .opill.off .led{ background:#B9AA96; box-shadow:none; }
+  .map-card{
+    position:relative;
+    padding:6px;
+    border-radius:22px;
+    background:#FFFDF9;
+    border:1px solid #EDE1CF;
+    box-shadow:0 12px 30px rgba(120,80,40,.10);
+  }
+  .map-stage{
+    position:relative;
+    aspect-ratio:1200 / 1066;
+    border-radius:16px;
+    overflow:hidden;
+    background:#EDE7DD;
+    isolation:isolate;
+    touch-action:manipulation;
+  }
+  .map-stage img{
+    display:block;
+    width:100%; height:100%;
+    object-fit:cover;
+    pointer-events:none;
+    user-select:none;
+    -webkit-user-drag:none;
+  }
+  .pin-layer{ position:absolute; inset:0; pointer-events:none; }
+  .pin{
+    position:absolute;
+    transform:translate(-50%,-50%);
+    display:inline-flex; align-items:center; gap:4px;
+    padding:4px 9px 4px 7px;
+    border:0;
+    border-radius:999px;
+    background:rgba(25,32,35,.9);
+    color:#FFF9F2;
+    font-size:clamp(9px,2.4vw,11.5px);
+    font-weight:800;
+    letter-spacing:-.2px;
+    line-height:1.28;
+    white-space:nowrap;
+    box-shadow:0 4px 11px rgba(18,24,27,.28), inset 0 1px 0 rgba(255,255,255,.08);
+    backdrop-filter:blur(3px);
+    pointer-events:auto;
+    cursor:pointer;
+    z-index:2;
+    transition:background .15s, box-shadow .15s;
+  }
+  .pin:hover{ background:rgba(15,21,24,.98); box-shadow:0 6px 16px rgba(18,24,27,.34), inset 0 1px 0 rgba(255,255,255,.1); }
+  .pin:focus-visible{ outline:2px solid #FFF3DF; outline-offset:2px; }
+  .pin .pin-dot{
+    width:6px; height:6px;
+    flex:0 0 auto;
+    border-radius:50%;
+    background:#4FB477;
+    box-shadow:0 0 0 2px rgba(79,180,119,.22);
+  }
+  .pin .pin-dot.busy{ background:#E7A33C; box-shadow:0 0 0 2px rgba(231,163,60,.24); }
+  .pin .pin-dot.off{ background:#9A938A; box-shadow:none; }
+  .pin.room{ background:rgba(22,29,32,.86); }
+  .pin.room:hover{ background:rgba(14,20,23,.97); }
+  .map-stage.motion .pin{ animation:pinFloat 3.8s ease-in-out infinite; animation-delay:var(--d,0s); }
+  .map-stage.motion .pin .pin-dot{ animation:dotPulse 2.6s ease-in-out infinite; }
+  @keyframes pinFloat{
+    0%,100%{ transform:translate(-50%,-50%) translateY(0); }
+    50%{ transform:translate(-50%,-50%) translateY(-3px); }
+  }
+  @keyframes dotPulse{
+    0%,100%{ box-shadow:0 0 0 2px rgba(79,180,119,.2); }
+    50%{ box-shadow:0 0 0 4px rgba(79,180,119,.06); }
+  }
+  .map-legend{
+    display:flex; align-items:center; gap:12px;
+    margin:10px 4px 0;
+    font-size:11.5px;
+    font-weight:700;
+    color:#A08D78;
+    letter-spacing:-.2px;
+    flex-wrap:wrap;
+  }
+  .map-legend i{
+    display:inline-flex; align-items:center; gap:5px;
+    font-style:normal;
+  }
+  .map-legend i::before{ content:""; width:6px; height:6px; border-radius:50%; background:#4FB477; }
+  .map-legend i.busy::before{ background:#E7A33C; }
+  .map-legend i.off::before{ background:#9A938A; }
+  .map-legend .hint{ margin-left:auto; color:#B5A48F; font-weight:600; }
+
+  /* Office agent detail modal */
+  .oa-hero{ display:flex; align-items:center; gap:13px; }
+  .oa-avatar{
+    width:60px; height:60px;
+    flex:0 0 auto;
+    display:grid; place-items:center;
+    font-size:29px;
+    border-radius:20px;
+    border:1px solid #EFE0C9;
+    box-shadow:inset 0 -2px 6px rgba(139,69,19,.06), 0 2px 8px rgba(139,69,19,.06);
+  }
+  .oa-id{ min-width:0; }
+  .oa-id h3{ margin:0; font-size:18px; font-weight:900; letter-spacing:-.4px; }
+  .oa-id p{ margin:1px 0 6px; font-size:12.5px; font-weight:700; color:#A08D78; }
+  .oa-state{
+    display:inline-flex; align-items:center; gap:5px;
+    padding:3px 9px;
+    border-radius:999px;
+    background:#F1ECE4;
+    border:1px solid #E3D9C9;
+    color:#857460;
+    font-size:11.5px;
+    font-weight:800;
+    letter-spacing:-.2px;
+  }
+  .oa-state.on{ background:#E7F5EC; border-color:#CFE8D9; color:#2B7A4E; }
+  .oa-state.busy{ background:#FBEFD6; border-color:#EFDCBB; color:#9A6A24; }
+  .oa-block{ margin-top:15px; }
+  .oa-label{
+    display:block;
+    margin-bottom:5px;
+    font-size:11.5px;
+    font-weight:800;
+    color:#A08D78;
+    letter-spacing:-.2px;
+  }
+  .oa-task{
+    padding:11px 13px;
+    border-radius:13px;
+    background:#FAF4E9;
+    border:1px solid #F0E3CE;
+    font-size:13.5px;
+    line-height:1.55;
+    letter-spacing:-.15px;
+    color:#5C4A39;
+    word-break:break-word;
+  }
+  .oa-task.empty{ color:#A9977F; }
+  .oa-meta{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-top:11px;
+    font-size:12px;
+    font-weight:700;
+    color:#A08D78;
+  }
+  .oa-meta strong{ color:#6E5B47; font-weight:800; }
+  .oa-actions{ margin-top:16px; display:flex; gap:8px; flex-wrap:wrap; }
+  .oa-actions .btn{ flex:1 1 140px; }
+
   /* ---------- Modals ---------- */
   .overlay{
     position:fixed; inset:0;
@@ -848,7 +1067,8 @@
   </header>
 
   <nav class="tabs" id="tabs" role="tablist" aria-label="비서실 탭">
-    <button class="tab active" type="button" role="tab" data-tab="meeting" aria-selected="true"><span class="tab-ic">💬</span><span>회의실</span></button>
+    <button class="tab active" type="button" role="tab" data-tab="office" aria-selected="true"><span class="tab-ic">🏢</span><span>오피스</span></button>
+    <button class="tab" type="button" role="tab" data-tab="meeting" aria-selected="false"><span class="tab-ic">💬</span><span>회의실</span></button>
     <button class="tab" type="button" role="tab" data-tab="tasks" aria-selected="false"><span class="tab-ic">📋</span><span>작업실</span></button>
     <button class="tab" type="button" role="tab" data-tab="agents" aria-selected="false"><span class="tab-ic">📊</span><span>비서현황</span></button>
     <button class="tab" type="button" role="tab" data-tab="notes" aria-selected="false"><span class="tab-ic">📝</span><span>메모</span></button>
@@ -862,8 +1082,39 @@
 
   <main class="main">
 
+    <!-- ================= 오피스 (3D) ================= -->
+    <section class="view active" id="view-office" role="tabpanel" aria-label="오피스">
+      <div class="scroll office-scroll">
+        <div class="ws-card">
+          <span class="ws-badge">Workspace</span>
+          <h2 class="ws-title" id="wsTitle">대장님, 6명의 비서가 대기 중이에요</h2>
+          <p class="ws-sub">공간이나 담당자를 탭하면 최근 진행 현황을 바로 볼 수 있어요.</p>
+        </div>
+
+        <div class="office-pills">
+          <button class="opill dark" id="motionPill" type="button" aria-pressed="true"><span class="led"></span>모션 ON</button>
+          <button class="opill" id="activePill" type="button">가동 6명</button>
+          <span class="opill" id="modePill">☁️ 연결 중</span>
+        </div>
+
+        <div class="map-card">
+          <div class="map-stage motion" id="mapStage">
+            <img src="office-map.png" alt="비서실 3D 오피스 지도 — 대회의실, 지휘실, 6개 데스크, 라운지" draggable="false" decoding="async">
+            <div class="pin-layer" id="pinLayer"></div>
+          </div>
+        </div>
+
+        <div class="map-legend">
+          <i class="off">오프라인</i>
+          <i>대기중</i>
+          <i class="busy">작업중</i>
+          <span class="hint">핀을 탭하면 바로 이동해요</span>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= 회의실 ================= -->
-    <section class="view active" id="view-meeting" role="tabpanel" aria-label="회의실">
+    <section class="view" id="view-meeting" role="tabpanel" aria-label="회의실">
       <div class="rooms" id="roomTabs"></div>
       <div class="room-meta">
         <span id="onlineBadge">🎯 지휘실 · ON 6명</span>
@@ -995,6 +1246,41 @@
   </div>
 </div>
 
+<!-- ================= 오피스 비서 상세 모달 ================= -->
+<div class="overlay" id="officeAgentModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="oaName">
+    <div class="modal-head">
+      <h2 id="oaTitle">비서 정보</h2>
+      <button class="icon-btn" type="button" data-close aria-label="닫기">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="oa-hero">
+        <div class="oa-avatar" id="oaAvatar">🥒</div>
+        <div class="oa-id">
+          <h3 id="oaName">피클</h3>
+          <p id="oaRole">총괄 비서</p>
+          <span class="oa-state" id="oaState"><span class="dot on"></span>대기중</span>
+        </div>
+      </div>
+
+      <div class="oa-block">
+        <span class="oa-label">현재 작업</span>
+        <div class="oa-task" id="oaTask">현재 배정된 작업 없음</div>
+      </div>
+
+      <div class="oa-meta">
+        <span>최근 활동</span>
+        <strong id="oaSeen">기록 없음</strong>
+      </div>
+
+      <div class="oa-actions">
+        <button class="btn primary" id="oaMention" type="button">🎯 지휘실에서 @멘션하기</button>
+        <button class="btn ghost" id="oaEdit" type="button">상태 변경</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ================= 설정 모달 ================= -->
 <div class="overlay" id="settingsModal" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
@@ -1073,6 +1359,19 @@
     { key: "지휘실", emoji: "🎯" },
     { key: "라운지", emoji: "☕" }
   ];
+  // 오피스 3D 뷰 위의 핀 위치 (이미지 기준 left% / top%)
+  var OFFICE_PINS = [
+    { kind: "room", room: "대회의실", label: "대회의실", x: 20.0, y: 29.0 },
+    { kind: "room", room: "지휘실", label: "지휘실", x: 50.0, y: 27.5 },
+    { kind: "room", room: "라운지", label: "라운지", x: 84.0, y: 71.0 },
+    { kind: "agent", id: "피클", x: 35.0, y: 38.5 },
+    { kind: "agent", id: "큐", x: 50.0, y: 46.5 },
+    { kind: "agent", id: "키링", x: 66.0, y: 38.5 },
+    { kind: "agent", id: "뮤즈", x: 29.0, y: 53.5 },
+    { kind: "agent", id: "Instinct", x: 45.0, y: 61.5 },
+    { kind: "agent", id: "pally", x: 61.0, y: 53.5 }
+  ];
+  var TAB_HASH = { office: "office", meeting: "chat", tasks: "tasks", agents: "agents", notes: "notes" };
   var TASK_STATUSES = ["대기", "실행중", "완료"];
   var AGENT_STATUSES = ["대기중", "작업중", "오프라인"];
 
@@ -1413,11 +1712,12 @@
      상태
      ========================================================= */
   var state = {
-    tab: "meeting",
+    tab: "office",
     room: "지휘실",
     sender: "대원",
     taskFilter: "전체",
     mode: "demo",
+    motion: true,
     cloudError: ""
   };
   var data = { messages: [], tasks: [], agents: [], notes: [] };
@@ -1432,7 +1732,8 @@
     var p = prefs();
     if (p.room && roomMeta(p.room).key === p.room) state.room = p.room;
     if (p.sender && (p.sender === "대원" || AGENTS[p.sender])) state.sender = p.sender;
-    if (p.tab && ["meeting", "tasks", "agents", "notes"].indexOf(p.tab) >= 0) state.tab = p.tab;
+    if (typeof p.motion === "boolean") state.motion = p.motion;
+    // 기본 랜딩 탭은 ‘오피스’ — 주소에 해시가 있으면 그쪽을 우선한다.
     applyHash(true);
   })();
 
@@ -1441,7 +1742,8 @@
     var h = String(location.hash || "").replace(/^#/, "");
     if (!h) return false;
     try { h = decodeURIComponent(h); } catch (e) {}
-    if (["meeting", "tasks", "agents", "notes"].indexOf(h) >= 0) {
+    if (h === "chat") h = "meeting";
+    if (["office", "meeting", "tasks", "agents", "notes"].indexOf(h) >= 0) {
       state.tab = h;
       return true;
     }
@@ -1610,12 +1912,14 @@
       : kind === "demo" ? "로컬 데모 모드 · Supabase를 연결하면 여러 AI가 함께 씁니다"
       : kind === "error" ? "연결에 문제가 있어요 · 눌러서 설정 확인"
       : "연결하는 중…";
+    updateModePill();
   }
 
   /* =========================================================
      렌더링
      ========================================================= */
   function renderAll() {
+    renderOffice();
     renderRoomTabs();
     renderChat();
     renderTasks();
@@ -1842,6 +2146,177 @@
   }
 
   /* =========================================================
+     오피스 (3D 뷰)
+     ========================================================= */
+  var officeAgentId = "";
+
+  function findAgentById(id) {
+    for (var i = 0; i < data.agents.length; i++) if (data.agents[i].id === id) return data.agents[i];
+    return null;
+  }
+
+  function statusDotClass(status) {
+    if (status === "작업중") return "busy";
+    if (status === "오프라인") return "off";
+    return "on";
+  }
+
+  // 방 핀의 점은 “그 방의 최근 대화”로 정한다. 1시간 이내 = 활발(주황)
+  function roomActivityClass(room) {
+    var last = null;
+    for (var i = 0; i < data.messages.length; i++) {
+      var m = data.messages[i];
+      if (m.room !== room) continue;
+      var d = toDate(m.created_at);
+      if (!d) continue;
+      if (!last || d.getTime() > last.getTime()) last = d;
+    }
+    if (!last) return "off";
+    return (Date.now() - last.getTime()) <= 3600000 ? "busy" : "on";
+  }
+
+  function updateModePill() {
+    var pill = $("#modePill");
+    if (!pill) return;
+    if (state.mode === "cloud" && !state.cloudError) {
+      pill.textContent = "☁️ 실시간 연결";
+      pill.title = "Supabase 실시간 연결";
+    } else if (state.cloudError) {
+      pill.textContent = "⚠️ 연결 오류";
+      pill.title = "Supabase 연결 오류 · 데모로 표시 중";
+    } else {
+      pill.textContent = "💾 로컬 데모";
+      pill.title = "이 브라우저에만 저장되는 데모 모드";
+    }
+  }
+
+  function applyMotion() {
+    var stage = $("#mapStage");
+    if (stage) stage.classList.toggle("motion", !!state.motion);
+    var pill = $("#motionPill");
+    if (!pill) return;
+    pill.classList.toggle("dark", !!state.motion);
+    pill.classList.toggle("off", !state.motion);
+    pill.setAttribute("aria-pressed", state.motion ? "true" : "false");
+    pill.title = state.motion ? "핀 움직임 끄기" : "핀 움직임 켜기";
+    pill.innerHTML = '<span class="led"></span>모션 ' + (state.motion ? "ON" : "OFF");
+  }
+
+  function toggleMotion() {
+    state.motion = !state.motion;
+    savePrefs(Object.assign(prefs(), { motion: state.motion }));
+    applyMotion();
+  }
+
+  function renderOffice() {
+    var stage = $("#mapStage");
+    if (!stage) return;
+
+    var agents = data.agents || [];
+    var working = 0, waiting = 0, offline = 0;
+    agents.forEach(function (a) {
+      if (a.status === "작업중") working += 1;
+      else if (a.status === "오프라인") offline += 1;
+      else waiting += 1;
+    });
+    var active = agents.length - offline;
+
+    var title = $("#wsTitle");
+    if (title) {
+      if (!agents.length) title.textContent = "대장님, 아직 비서가 없어요";
+      else if (working && waiting) title.textContent = "대장님, " + working + "명이 작업 중이고 " + waiting + "명이 대기 중이에요";
+      else if (working) title.textContent = "대장님, " + working + "명의 비서가 작업 중이에요";
+      else if (waiting) title.textContent = "대장님, " + waiting + "명의 비서가 대기 중이에요";
+      else title.textContent = "대장님, 지금은 모두 오프라인이에요";
+    }
+
+    var activePill = $("#activePill");
+    if (activePill) activePill.textContent = "가동 " + active + "명";
+    updateModePill();
+    applyMotion();
+
+    var html = "";
+    OFFICE_PINS.forEach(function (p, i) {
+      var style = "left:" + p.x + "%;top:" + p.y + "%";
+      var delay = "--d:" + (i * 0.38).toFixed(2) + "s";
+      if (p.kind === "room") {
+        var rm = roomMeta(p.room);
+        html += '<button class="pin room" type="button" style="' + style + ';' + delay + '"' +
+          ' data-pin-room="' + esc(p.room) + '" title="' + esc(p.room) + ' 열기" aria-label="' + esc(p.room) + ' 방 열기">' +
+          '<span class="pin-dot ' + roomActivityClass(p.room) + '"></span>' + esc(p.label) + "</button>";
+      } else {
+        var a = findAgentById(p.id);
+        var meta = agentMeta(p.id);
+        var st = a ? (a.status || "대기중") : "오프라인";
+        var nm = (a && a.name) ? a.name : meta.name;
+        html += '<button class="pin" type="button" style="' + style + ';' + delay + '"' +
+          ' data-pin-agent="' + esc(p.id) + '" title="' + esc(nm) + ' · ' + esc(st) + '" aria-label="' + esc(nm) + ' ' + esc(st) + ' · 상세 보기">' +
+          '<span class="pin-dot ' + statusDotClass(st) + '"></span>' + esc(nm) + "</button>";
+      }
+    });
+    var layer = $("#pinLayer");
+    if (layer) layer.innerHTML = html;
+  }
+
+  function goToRoom(room) {
+    if (!room) return;
+    state.room = room;
+    savePrefs(Object.assign(prefs(), { room: room }));
+    stickBottom = true;
+    switchTab("meeting");
+    renderChat();
+    renderRoomTabs();
+    scrollToBottom();
+  }
+
+  function openOfficeAgent(id) {
+    var a = findAgentById(id);
+    var meta = agentMeta(id);
+    if (!a) return;
+    officeAgentId = id;
+    var st = a.status || "대기중";
+    var emoji = a.emoji || meta.emoji;
+
+    $("#oaAvatar").textContent = emoji;
+    $("#oaAvatar").style.background = meta.tint;
+    $("#oaName").textContent = a.name || meta.name;
+    $("#oaRole").textContent = a.role || meta.role;
+    var stateEl = $("#oaState");
+    stateEl.className = "oa-state " + statusDotClass(st);
+    stateEl.innerHTML = '<span class="dot ' + statusDotClass(st) + '"></span>' + esc(st);
+
+    var task = (a.current_task || "").trim();
+    var taskEl = $("#oaTask");
+    taskEl.textContent = task || "현재 배정된 작업 없음";
+    taskEl.classList.toggle("empty", !task);
+    $("#oaSeen").textContent = relTime(a.last_seen);
+    $("#oaMention").textContent = "🎯 지휘실에서 @" + (a.name || meta.name) + " 멘션하기";
+    openModal($("#officeAgentModal"));
+  }
+
+  function mentionFromOffice() {
+    var a = findAgentById(officeAgentId);
+    if (!a) return;
+    var name = a.name || a.id;
+    closeModal($("#officeAgentModal"));
+    state.room = "지휘실";
+    state.sender = "대원";
+    savePrefs(Object.assign(prefs(), { room: state.room, sender: state.sender }));
+    stickBottom = true;
+    switchTab("meeting");
+    renderChat();
+    renderRoomTabs();
+    renderSenderPills();
+    insertAtCaret("@" + name + " ");
+  }
+
+  function editFromOffice() {
+    var id = officeAgentId;
+    closeModal($("#officeAgentModal"));
+    openAgentModal(id);
+  }
+
+  /* =========================================================
      UI 바인딩
      ========================================================= */
   function bindUI() {
@@ -1855,6 +2330,19 @@
       if (!btn) return;
       switchTab(btn.getAttribute("data-tab"));
     });
+
+    // 오피스 지도 핀 · 모션 토글
+    $("#mapStage").addEventListener("click", function (e) {
+      var pin = e.target.closest(".pin");
+      if (!pin) return;
+      var room = pin.getAttribute("data-pin-room");
+      if (room) { goToRoom(room); return; }
+      var id = pin.getAttribute("data-pin-agent");
+      if (id) openOfficeAgent(id);
+    });
+    $("#motionPill").addEventListener("click", toggleMotion);
+    $("#oaMention").addEventListener("click", mentionFromOffice);
+    $("#oaEdit").addEventListener("click", editFromOffice);
 
     // 방
     $("#roomTabs").addEventListener("click", function (e) {
@@ -2027,8 +2515,18 @@
     if (!tab) return;
     state.tab = tab;
     savePrefs(Object.assign(prefs(), { tab: tab }));
-    try { if (location.hash !== "#" + tab) history.replaceState(null, "", "#" + tab); } catch (e) {}
+    try {
+      var want = TAB_HASH[tab] || tab;
+      if (location.hash !== "#" + want) history.replaceState(null, "", "#" + want);
+    } catch (e) {}
     renderTabs();
+    if (tab === "office") {
+      renderOffice();
+      requestAnimationFrame(function () {
+        var sc = $("#view-office .scroll");
+        if (sc) sc.scrollTop = 0;
+      });
+    }
     if (tab === "meeting") {
       requestAnimationFrame(function () {
         var el = $("#chatScroll");

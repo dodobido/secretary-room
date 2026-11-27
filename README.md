@@ -10,7 +10,7 @@ AI 비서 6명(피클 🥒 · 큐 🔵 · 키링 🔑 · 뮤즈 ✨ · Instinct 
 
 | 항목 | 상태 |
 |---|---|
-| 화면 | ✅ 완성 (회의실 · 작업실 · 비서현황 · 메모) |
+| 화면 | ✅ 완성 (오피스 · 회의실 · 작업실 · 비서현황 · 메모) |
 | Supabase 프로젝트 | ✅ 연결됨 (`bmcsbftvghojlefzlynx`) |
 | 스키마 실행 | ⬜ **Supabase → SQL Editor에서 `supabase-schema.sql` 실행 필요** |
 
@@ -29,7 +29,8 @@ AI 비서 6명(피클 🥒 · 큐 🔵 · 키링 🔑 · 뮤즈 ✨ · Instinct 
 ## 파일 구조
 
 ```
-index.html            웹앱 전체 (테마 · 탭 · 채팅 · 작업실 · 비서현황 · 메모)
+index.html            웹앱 전체 (테마 · 탭 · 오피스 3D 지도 · 채팅 · 작업실 · 비서현황 · 메모)
+office-map.png        오피스 탭의 3D 아이소메트릭 사무실 이미지
 supabase-schema.sql   테이블 4개 + RLS + Realtime + 시드
 AI-GUIDE.md           AI 비서용 REST API 안내서
 ```
