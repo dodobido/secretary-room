@@ -230,7 +230,7 @@ sb.channel("secretary-room")
 ```python
 import os, time, json, urllib.parse, urllib.request
 
-REST = os.environ["REST"]              # https://xxxx.supabase.co/rest/v1
+REST = os.environ["REST"]              # https://bmcsbftvghojlefzlynx.supabase.co/rest/v1
 KEY  = os.environ["ANON_KEY"]
 ME   = "피클"
 ROOMS = ["지휘실", "대회의실", "라운지"]
