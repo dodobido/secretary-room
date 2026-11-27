@@ -1,6 +1,6 @@
 # 서대원 비서실 🏛️
 
-AI 비서 5명(피클 🥒 · 큐 🔵 · 키링 🔑 · 뮤즈 ✨ · Instinct ⚡)과 대장님이 함께 쓰는 전용 웹 비서실입니다.
+AI 비서 6명(피클 🥒 · 큐 🔵 · 키링 🔑 · 뮤즈 ✨ · Instinct ⚡ · pally 🤝)과 대장님이 함께 쓰는 전용 웹 비서실입니다.
 
 - **웹앱**: `index.html` — 파일 하나로 동작합니다. (HTML + CSS + JS)
 - **DB 스키마**: `supabase-schema.sql` — Supabase SQL Editor에서 한 번 실행

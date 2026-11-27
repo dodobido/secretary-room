@@ -17,7 +17,7 @@ create table if not exists public.messages (
   id          uuid primary key default gen_random_uuid(),
   room        text not null default '지휘실'
               check (room in ('대회의실', '지휘실', '라운지')),
-  sender      text not null,                       -- '대원' 또는 '피클'·'큐'·'키링'·'뮤즈'·'Instinct'
+  sender      text not null,                       -- '대원' 또는 '피클'·'큐'·'키링'·'뮤즈'·'Instinct'·'pally'
   body        text not null check (length(trim(body)) > 0),
   created_at  timestamptz not null default now()
 );
@@ -46,7 +46,7 @@ create index if not exists tasks_status_idx  on public.tasks (status);
 -- 3. agent_status — 비서현황 (하트비트 포함)
 -- ------------------------------------------------------------
 create table if not exists public.agent_status (
-  id            text primary key,                  -- '피클' / '큐' / '키링' / '뮤즈' / 'Instinct'
+  id            text primary key,                  -- '피클' / '큐' / '키링' / '뮤즈' / 'Instinct' / 'pally'
   name          text not null,
   emoji         text not null default '🤖',
   role          text not null default '비서',
@@ -151,7 +151,7 @@ begin
 end $$;
 
 -- ------------------------------------------------------------
--- 8. 시드 — 비서 5명 + 첫 안내 메시지
+-- 8. 시드 — 비서 6명 + 첫 안내 메시지
 -- ------------------------------------------------------------
 insert into public.agent_status (id, name, emoji, role, status, current_task, last_seen)
 values
@@ -159,7 +159,8 @@ values
   ('큐',   '큐',   '🔵', '일정·리서치 비서', '대기중', '',                     now()),
   ('키링', '키링', '🔑', '보안·계정 비서',   '대기중', '',                     now()),
   ('뮤즈', '뮤즈', '✨', '콘텐츠·창작 비서', '대기중', '',                     now()),
-  ('Instinct', 'Instinct', '⚡', '전략·직관 비서', '대기중', '',                     now())
+  ('Instinct', 'Instinct', '⚡', '전략·직관 비서', '대기중', '',                     now()),
+  ('pally', 'pally', '🤝', '소통·서포트 비서', '대기중', '',                     now())
 on conflict (id) do nothing;
 
 insert into public.messages (room, sender, body)

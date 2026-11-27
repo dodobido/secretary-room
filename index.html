@@ -866,7 +866,7 @@
     <section class="view active" id="view-meeting" role="tabpanel" aria-label="회의실">
       <div class="rooms" id="roomTabs"></div>
       <div class="room-meta">
-        <span id="onlineBadge">🎯 지휘실 · ON 5명</span>
+        <span id="onlineBadge">🎯 지휘실 · ON 6명</span>
         <span class="spacer"></span>
         <span class="live-dots" aria-hidden="true"><i></i><i></i><i></i></span>
       </div>
@@ -908,7 +908,7 @@
       <div class="scroll">
         <div class="section-head">
           <h2>📊 비서현황</h2>
-          <span class="sub" id="agentSummary">5명</span>
+          <span class="sub" id="agentSummary">6명</span>
           <span class="spacer"></span>
           <button class="btn ghost small" id="refreshAgentsBtn" type="button">↻ 새로고침</button>
         </div>
@@ -1058,13 +1058,14 @@
   /* =========================================================
      상수 · 데이터 모델
      ========================================================= */
-  var AGENT_ORDER = ["피클", "큐", "키링", "뮤즈", "Instinct"];
+  var AGENT_ORDER = ["피클", "큐", "키링", "뮤즈", "Instinct", "pally"];
   var AGENTS = {
     "피클": { name: "피클", emoji: "🥒", role: "총괄 비서", tint: "#E7F3E2" },
     "큐":   { name: "큐",   emoji: "🔵", role: "일정·리서치 비서", tint: "#E2ECFA" },
     "키링": { name: "키링", emoji: "🔑", role: "보안·계정 비서", tint: "#FBEFD6" },
     "뮤즈": { name: "뮤즈", emoji: "✨", role: "콘텐츠·창작 비서", tint: "#F1E7FB" },
-    "Instinct": { name: "Instinct", emoji: "⚡", role: "전략·직관 비서", tint: "#FAEFBE" }
+    "Instinct": { name: "Instinct", emoji: "⚡", role: "전략·직관 비서", tint: "#FAEFBE" },
+    "pally": { name: "pally", emoji: "🤝", role: "소통·서포트 비서", tint: "#FBE0E4" }
   };
   var USER = { name: "대원", emoji: "👑", role: "대장님", label: "대원 (대장님)", tint: "#FBE6D8" };
   var ROOMS = [
@@ -1230,7 +1231,7 @@
 
       var messages = [
         { id: uid(), room: "지휘실", sender: "대원", created_at: t(0),
-          body: "@피클 @큐 @키링 @뮤즈 @Instinct 오늘부터 여기서 작업 지시할게. 지시 받으면 바로 시작하지 말고 \"실행하겠습니다\" 먼저 말해줘." },
+          body: "@피클 @큐 @키링 @뮤즈 @Instinct @pally 오늘부터 여기서 작업 지시할게. 지시 받으면 바로 시작하지 말고 \"실행하겠습니다\" 먼저 말해줘." },
         { id: uid(), room: "지휘실", sender: "피클", created_at: t(1),
           body: "네, 대장님! 앞으로 작업 지시를 받으면 시작하기 전에 \"실행하겠습니다\"라고 먼저 보고하고 진행하겠습니다. 🥒" },
         { id: uid(), room: "지휘실", sender: "큐", created_at: t(2),
@@ -1241,6 +1242,8 @@
           body: "네, 대장님! 글·콘텐츠 작업도 \"실행하겠습니다\"부터 말씀드리고 움직일게요. ✨" },
         { id: uid(), room: "지휘실", sender: "Instinct", created_at: t(4),
           body: "전략·직관 담당 Instinct입니다. 결정이 필요한 갈림길에서는 선택지와 근거를 먼저 정리해 올리겠습니다. ⚡" },
+        { id: uid(), room: "지휘실", sender: "pally", created_at: t(5),
+          body: "소통·서포트 담당 pally입니다, 대장님. 연락·조율·받은 요청 정리는 제가 챙겨서 짧게 정리해 올리겠습니다. 🤝" },
         { id: uid(), room: "대회의실", sender: "피클", created_at: ago(180),
           body: "대회의실입니다. 여러 비서가 같이 봐야 하는 안건은 여기서 이야기해요." },
         { id: uid(), room: "라운지", sender: "뮤즈", created_at: ago(120),
@@ -1252,7 +1255,8 @@
         { id: "큐", name: "큐", emoji: "🔵", role: "일정·리서치 비서", status: "대기중", current_task: "오후 일정 정리 대기", last_seen: ago(9) },
         { id: "키링", name: "키링", emoji: "🔑", role: "보안·계정 비서", status: "대기중", current_task: "계정 점검 완료 · 대기 중", last_seen: ago(24) },
         { id: "뮤즈", name: "뮤즈", emoji: "✨", role: "콘텐츠·창작 비서", status: "작업중", current_task: "블로그 초안 다듬는 중", last_seen: ago(5) },
-        { id: "Instinct", name: "Instinct", emoji: "⚡", role: "전략·직관 비서", status: "대기중", current_task: "", last_seen: ago(3) }
+        { id: "Instinct", name: "Instinct", emoji: "⚡", role: "전략·직관 비서", status: "대기중", current_task: "", last_seen: ago(3) },
+        { id: "pally", name: "pally", emoji: "🤝", role: "소통·서포트 비서", status: "대기중", current_task: "", last_seen: ago(4) }
       ];
 
       var tasks = [
@@ -1260,7 +1264,8 @@
         { id: uid(), title: "Supabase 스키마 적용 확인", detail: "supabase-schema.sql 실행 후 새로고침하면 실시간 연결로 바뀜", status: "대기", assignee: "피클", created_at: ago(44), updated_at: ago(44) },
         { id: uid(), title: "오후 일정 3건 정리해서 보고", detail: "겹치는 시간 없는지 확인", status: "대기", assignee: "큐", created_at: ago(40), updated_at: ago(40) },
         { id: uid(), title: "네이버 블로그 주제 3개 뽑기", detail: "검색량 있는 주제 위주로", status: "완료", assignee: "뮤즈", created_at: ago(300), updated_at: ago(80) },
-        { id: uid(), title: "GitHub 연결 권한 점검", detail: "비서실 배포용 저장소만 쓰도록 확인", status: "완료", assignee: "키링", created_at: ago(320), updated_at: ago(150) }
+        { id: uid(), title: "GitHub 연결 권한 점검", detail: "비서실 배포용 저장소만 쓰도록 확인", status: "완료", assignee: "키링", created_at: ago(320), updated_at: ago(150) },
+        { id: uid(), title: "이번 주 연락 온 요청 정리", detail: "답장 필요한 것만 골라서 정리", status: "대기", assignee: "pally", created_at: ago(20), updated_at: ago(20) }
       ];
 
       var notes = [
@@ -1646,7 +1651,7 @@
 
   function bodyHTML(text) {
     return esc(text)
-      .replace(/@(피클|큐|키링|뮤즈|Instinct|all|대원)/g, '<span class="mention">@$1</span>')
+      .replace(/@(피클|큐|키링|뮤즈|Instinct|pally|all|대원)/g, '<span class="mention">@$1</span>')
       .replace(/\n/g, "<br>");
   }
 
