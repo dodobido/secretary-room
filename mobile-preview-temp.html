@@ -8,5 +8,7 @@
   iframe{width:390px;height:844px;border:0;display:block;background:#FAF6F0;margin-top:24px;}
 </style>
 </head>
-<body><iframe src="./index.html"></iframe></body>
+<body><iframe id="fr" src="./index.html"></iframe>
+<script>document.getElementById('fr').src = './index.html?t=' + Date.now();</script>
+</body>
 </html>
