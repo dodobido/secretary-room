@@ -799,7 +799,7 @@
     border-radius:999px;
     background:rgba(25,32,35,.9);
     color:#FFF9F2;
-    font-size:clamp(9px,2.4vw,11.5px);
+    font-size:clamp(9px,2.4vw,12.5px);
     font-weight:800;
     letter-spacing:-.2px;
     line-height:1.28;
@@ -2161,7 +2161,7 @@
     return "on";
   }
 
-  // 방 핀의 점은 “그 방의 최근 대화”로 정한다. 1시간 이내 = 활발(주황)
+  // 방 핀의 점은 “그 방의 최근 대화”로 정한다. 1시간 이내 = 활발(주황), 그 밖에는 초록
   function roomActivityClass(room) {
     var last = null;
     for (var i = 0; i < data.messages.length; i++) {
@@ -2171,7 +2171,7 @@
       if (!d) continue;
       if (!last || d.getTime() > last.getTime()) last = d;
     }
-    if (!last) return "off";
+    if (!last) return "on";
     return (Date.now() - last.getTime()) <= 3600000 ? "busy" : "on";
   }
 
